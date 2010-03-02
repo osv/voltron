@@ -1,0 +1,284 @@
+# -*- mode: tcl -*-
+
+#=========================================================
+# file format
+#
+# set X. {
+#     {MenuTextForAll MenuHeaderForAll}		CommandForAll	
+#     {MenuAlienText MenuHeaderForAlien}	AlienCommands
+#     {MenuHumText MenuHeaderForHuman}		HumCommands
+#     {MenuSpecText MenuHeaderForSpec}		SpectatorCommands
+# }
+#
+# set X.Y. {
+#     MenuTextForAll	CommandForAll
+#     MenuAlienText	AlienCommands
+#     MenuHumText	HumCommands
+#     MenuSpecText	SpectatorCommands
+# }
+# where X, Y is one of $bind_keys (default [0-9-=])
+#
+# Comments inside set FOOBAR { .... } not allowed!
+#
+# String substitute available, like other tcl command here too.
+# Uncomment some variable to manual setup 
+#=========================================================
+
+#----------------------------------------
+# # Chat keys
+# # default {1 2 3 4 5 6 7 8 9 0 - =}
+# set bind_keys {1 2 3 4 5 6 7 8 9 0 - =}
+
+#----------------------------------------
+# # Split larg file
+# # default is 16000
+# set fileSplitSize 16000
+
+# #----------------------------------------
+# # Chat menu output files for team A
+# # default is "chatmenu_alien.cfg"
+set chatmenu_teama "~/.tremulous/base/ui/hud/common/chatmenu_alien.cfg"
+# #----------------------------------------
+# # Chat menu output files for team B
+# # default is "chatmenu_alien.cfg"
+set chatmenu_teamb "~/.tremulous/base/ui/hud/common/chatmenu_human.cfg"
+
+# #----------------------------------------
+# # Chat menu output files for spectator
+# # default is "chatmenu_alien.cfg"
+set chatmenu_spect "~/.tremulous/base/ui/hud/common/chatmenu_spec.cfg"
+
+# #----------------------------------------
+# # Main chat menu exec script.
+# # default is "chatmenu_install.cfg"
+set binds_install "~/.tremulous/base/ui/hud/common/chatmenu_install.cfg"
+#
+# #   File will contain key binds for all teams.  This may be not good
+# # if you  have different  command for different  teams like  say "Om
+# # down" for teamA(alien) and "RC down" for teamB(human). If you exec
+# # this script  and run key that  provide "say Om down"  you will see
+# # both message  "Om down" and "RC  down".  To prevent  this you need
+# # load different  binds set  (team specified) when  you join/un-join
+# # team or just  don't use team specified binds.   Below is variables
+# # for team specified chat menu commands:
+# 
+# # - team A binds_teama_install (default is "chatmenu_alien_install.cfg")
+# set binds_teama_install "chatmenu_alien_install.cfg"
+# # -team B binds_teamb_install (default is "chatmenu_human_install.cfg")
+# set binds_teamb_install "chatmenu_human_install.cfg"
+# # - team spectator binds_teamb_install (default is "chatmenu_spect_install.cfg")
+# set binds_spect_install "chatmenu_spect_install.cfg"
+set binds_teama_install "~/.tremulous/base/ui/hud/common/chatmenu_alien_install.cfg"
+set binds_teamb_install "~/.tremulous/base/ui/hud/common/chatmenu_human_install.cfg"
+set binds_spect_install "~/.tremulous/base/ui/hud/common/chatmenu_spect_install.cfg"
+
+# #----------------------------------------
+# # Template for menu. You may set different for all teams:
+# # menu_alien_tmpl, menu_human_tmpl and menu_spectator_tmpl
+# # Example:
+# set menu_spectator_tmpl "    rect 6 210 400 190
+#     visible 1
+#     decoration
+#     forecolor 45 45 45 1
+#     textscale 0.25
+#     autowrapped
+#     textstyle ITEM_TEXTSTYLE_SHADOWED
+#     cvartest cg_chatmenu"
+
+# #----------------------------------------
+# # BACKSPACE additional command
+# # default "play sound/misc/menu4.wav"
+# set backspace_cmd "play sound/misc/menu4.wav"
+
+set snd_menuoff sound/misc/menu3
+set snd_menuon  sound/misc/menu1.wav
+set prefix ^3(^5
+set sufix ^3)
+
+set 1. {
+    {}			{play $snd_menuon}
+    {Evolve "Evolve to:"} {}
+    {Buy "Buy:"} {}
+}
+set 1.1. {  
+    ""			{play $snd_menuoff}
+    "Dretch"		{class level0}
+    "Construction Kit"	{sell weapons;sell upgrades;buy ackit; buy ckit;itemact ackit;itemact ckit}
+}
+set 1.2. {
+    ""			{play $snd_menuoff}
+    Basilisk		{class level1}
+    Rifle		{sell weapons;sell weapons;buy rifle;itemact rifle}
+}
+set 1.3. {
+    ""			{play $snd_menuoff}
+    "Adv. Basilisk"	{class level1upg}
+    "Pain Saw"		{sell weapons;sell weapons;buy psaw;itemact psaw}
+}
+set 1.4. { 
+    ""			{play $snd_menuoff}
+    Marauder		{class level2}
+    Shotgun		{sell weapons;sell weapons;buy shotgun;itemact shotgun}
+}
+set 1.5. {
+    ""			{play $snd_menuoff}
+    "Adv. Marauder"	{class level2upg}
+    "Las Gun"		{sell weapons;sell weapons;buy lgun;itemact lgun;buy battpack}
+}
+
+set 1.6. {
+    ""			{play $snd_menuoff}
+    Dragoon		{class level3}
+    "Mass Driver"	{sell weapons;sell weapons;buy mdriver;itemact mdriver;buy battpack}
+}
+    
+set 1.7. {
+    {}			{play $snd_menuoff}
+    "Adv. Dragoon"	{class level3upg}
+    "Chaingun"		{sell weapons;sell weapons;buy chaingun;itemact chaingun}
+}
+
+set 1.8. {
+    ""			{play $snd_menuoff}
+    Tyrant		{class level4}
+    "Pulse Rifl"	{sell weapons;sell weapons;buy prifle;itemact prifle;buy battpack}
+}
+set 1.9. {
+    ""			{play $snd_menuoff}
+    {}			{}
+    Flamethrower	{sell weapons;sell weapons;buy flamer;itemact flamer}
+}
+set 1.0. {
+    ""			{play $snd_menuoff}
+    {}			{}
+    "Lucifer Cannon"	{sell weapons;sell weapons;buy lcannon;itemact lcannon;buy battpack}
+}
+set 1.-. {
+    ""			{play $snd_menuoff}
+    {}			{}
+    "Jet Pack"		{sell battpack;sell bsuit;buy helmet;buy larmour;buy jetpack}
+}
+set 1.=. {
+    ""			{play $snd_menuoff}
+    {}			{}
+    Battlesuit		{sell larmour; sell helmet; sell battpack; sell jetpack; buy bsuit}
+}
+
+set 2. {{Response "Send Response:"} {play $snd_menuon} }
+set 2.1. {Yes "say_team ${prefix}Yes${sufix}" }
+set 2.2. {No "say_team ${prefix}No${sufix}" }
+set 2.3. {Thanks "say_team ${prefix}Thanks${sufix}" }
+set 2.4. {Sorry "say_team ${prefix}Sorry!${sufix}" }
+set 2.5. {Oops "say_team ${prefix}Oops${sufix}" }
+set 2.6. {"I'm attacking" "say_team ${prefix}I'm attacking${sufix}"}
+set 2.7. {"I'm defending" "say_team ${prefix}I'm defending${sufix}"}
+set 2.8. {"I'm building" "say_team ${prefix}I'm building${sufix}"}
+set 2.9. {Grenade "say_team ${prefix}Grenade!${sufix}"}
+set 2.0. {Incoming "say_team ${prefix}Human incoming!${sufix}"}
+set 2.-. {Flank "say_team ${prefix}Flank!${sufix}"}
+set 2.=. {"Where to?" "say_team ${prefix}Where to?${sufix}"}
+
+set 3. {{Order "Send Order:"}	{play $snd_menuon} }
+set 3.1 {"I need backup!"	"say_team ${prefix}I need backup!${prefix}"}
+set 3.2 {"We need builders"	"say_team ${prefix}We need builders!${sufix}"}
+set 3.3 {"We need spawns"	"say_team ${prefix}We need spawns!${sufix}"}
+set 3.4 {"We need to regroup"	"say_team ${prefix}We need to regroup!${sufix}"}
+set 3.5 {"Follow me"		"say_team ${prefix}Follow me!${sufix}"}
+set 3.6 {"Attack"		"say_team ${prefix}Attack!${sufix}"}
+set 3.7 {"Defend our base"	"say_team ${prefix}Defend our base!${sufix}"}
+set 3.8 {"Stay alive"		"say_team ${prefix}Stay alive!${sufix}"}
+set 3.9 {"Hold back"		"say_team ${prefix}Hold back!${sufix}"}
+set 3.0 {"Clear the path"	"say_team ${prefix}Clear the path!${sufix}"}
+set 3.- {
+    {} {}
+    "Enemy telenode down"	"say_team ${prefix}Enemy TELENODE down${sufix}"
+    "Enemy egg down"		"say_team ${prefix}Enemy EGG down${sufix}"
+}
+set 3.= {
+    {} {}
+    "Enemy Reactor down"	"say_team ${prefix}Enemy Reactor down${sufix}"
+    "Enemy Overmind down"	"say_team ${prefix}Enemy Overmind down${sufix}"
+}
+
+set 4. { {Build "Build:"} {play $snd_menuon} }
+set 4.1. { {} {}
+    Egg				"build eggpod"
+    Telenode			"build telenode"}
+
+set 4.2. { {} {}
+    Overmind			"build overmind"
+    Reactor			"build reactor"}
+
+set 4.3. { {} {}
+    Booster			"build booster"
+    Armory			"build arm"}
+
+set 4.4. { {} {}
+    "Acid Tube"			"build acid_tube"
+    Turret			"build mgturret"}
+
+set 4.5. { {} {}
+    Trapper			"build trapper"
+    Medistation			"build medistat"}
+
+set 4.6. { {} {}
+    Hive			"build hive"
+    "Defence Computer"		"build dcc"}
+
+set 4.7. { {} {}
+    Barricade			"build barricade"
+    Tesla			"build tesla"}
+set 4.8. { {} {}
+    Repeater			"build repeater"
+    Hovel			"build hovel"
+}
+ 
+set 5. {{Admin "Admin:"}	{play $snd_menuon} }
+set 5.1 {"!namelog"		"!namelog;toggleconsole"}
+set 5.2 {"!buildlog humans"	"!buildlog h;toggleconsole"}
+set 5.3 {"!buildlog aliens"	"!buildlog a;toggleconsole"}
+set 5.4 {!pause			"!pause 0"}
+set 5.5 {!listplayers		"!listplayers;toggleconsole"}
+set 5.6 {!allready		"!allready"}
+set 5.7 {!spec999		"!spec999"}
+set 5.8 {"!lock aliens"		"!lock a;vstr menu0"}
+set 5.9 {"!lock humans"		"!lock h;vstr menu0"}
+set 5.0 {!passvote		"!passvote"}
+set 5.- {!cancelvote		"!cancelvote"}
+set 5.= {!unlockteams		"!unlock h;!unlock a;vstr menu0"}
+
+set 0. {{Join "Join:"}		{play $snd_menuon} }
+set 0.1. {Alien		{team aliens;exec ui/hud/common/chatmenu_alien_install.cfg;play $snd_menuoff}}
+set 0.2. {Human		{team humans;exec ui/hud/common/chatmenu_human_install.cfg;play $snd_menuoff}}
+set 0.3. {Spectate	{team spectate;exec ui/hud/common/chatmenu_spect_install.cfg;play $snd_menuoff}}
+
+# You can use here bind command
+bind F3 "say_team ${prefix}Sorry${sufix}"
+
+# # Other bind. postInstall variable contain additional script code
+# # Below is default value:
+# set postInstall "
+# seta cg_tutorial 0
+
+# vstr menu0
+
+# bind \"v\" \"vstr +flash\"
+# bind \"]\" \"vstr Volt_vol+\"
+# bind \"[\" \"vstr Volt_vol-\"
+# bind \\ \"set s_volume 0.0; set Volt_vol- vstr Volt_vol+-; set Volt_vol+ vstr Volt_vol01;  echo ^2Sound ^2Volume ^2|^1^3**********^2| (Muted);\"
+
+# set +flash \"vstr flash05;\"
+# set flash05 \"set r_lightmap 1; set cg_flashlight 1;play sound/misc/menu3; set +flash vstr flash06;\"
+# set flash06 \"set r_lightmap 0;set cg_flashlight 2;play sound/misc/menu3; set -flash vstr flash05; set +flash vstr flash05;\"
+# set Volt_vol- \"vstr Volt_vol03;\"
+# set Volt_vol+ \"vstr Volt_vol05;\"
+# set Volt_vol+- \"set s_volume 0.0; set Volt_vol- vstr Volt_vol+-; set Volt_vol+ vstr Volt_vol01; echo ^2Sound ^2Volume ^2|^1^3**********^2| (Muted);s_volume;\"
+# set Volt_vol01 \"set s_volume 0.2; set Volt_vol- vstr Volt_vol+-; set Volt_vol+ vstr Volt_vol02; echo ^2Sound ^2Volume ^2|^1*^3*********^2|;s_volume;\"
+# set Volt_vol02 \"set s_volume 0.4; set Volt_vol- vstr Volt_vol01; set Volt_vol+ vstr Volt_vol03; echo ^2Sound ^2Volume ^2|^1**^3********^2|;s_volume;\"
+# set Volt_vol03 \"set s_volume 0.6; set Volt_vol- vstr Volt_vol02; set Volt_vol+ vstr Volt_vol04; echo ^2Sound ^2Volume ^2|^1***^3*******^2|;s_volume;s_volume;\"
+# set Volt_vol04 \"set s_volume 0.8; set Volt_vol- vstr Volt_vol03; set Volt_vol+ vstr Volt_vol05; echo ^2Sound ^2Volume ^2|^1****^3******^2| (Default);s_volume;\"
+# set Volt_vol05 \"set s_volume 1.0; set Volt_vol- vstr Volt_vol04; set Volt_vol+ vstr Volt_vol06; echo ^2Sound ^2Volume ^2|^1*****^3*****^2|;s_volume;\"
+# set Volt_vol06 \"set s_volume 1.2; set Volt_vol- vstr Volt_vol05; set Volt_vol+ vstr VOlt_vol07; echo ^2Sound ^2Volume ^2|^1******^3****^2|;s_volume;\"
+# set Volt_vol07 \"set s_volume 1.4; set Volt_vol- vstr Volt_vol06; set Volt_vol+ vstr Volt_vol08; echo ^2Sound ^2Volume ^4|^1*******^3***^4|;s_volume;\"
+# set Volt_vol08 \"set s_volume 1.6; set Volt_vol- vstr Volt_vol07; set Volt_vol+ vstr Volt_vol09; echo ^2Sound ^2Volume ^2|^1********^3**^2|;s_volume;\"
+# "
