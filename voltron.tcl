@@ -294,7 +294,7 @@ set fh_a [open $binds_teama_install w]
 set fh_b [open $binds_teamb_install w]
 set fh_s [open $binds_spect_install w]
 
-puts "==> Generate exec scripts"
+puts "==> Generate exec scripts:"
 proc puts2All {text} {
     global fh_m fh_a fh_b fh_s
     puts $fh_m $text
