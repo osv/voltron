@@ -7,14 +7,15 @@
 
   Voltron is generator of chatmenu for different HUDs of several games
   (primary for tremulous and [[http://tremulous.net/forum/index.php?topic=8699.0][Volt  HUD]] [fn:1]). Also allow you add own
-  binds into config file, create message list.
+  binds into config  file, create message list and  auto split file if
+  need.
 
 * Creating chat menu
   Configure file is  [[http://www.tcl.tk][tcl]] source file. But don't  worry, you don't need
   to learn this language for creating your menus.  Below is example of
   simple menu:
 
-  #+begin_src tcl -n -r
+#+begin_src tcl -n -r
 set snd_menuoff sound/misc/menu3
 set snd_menuon  sound/misc/menu1.wav
 
@@ -34,21 +35,41 @@ set 1.2. {
     Basilisk		{class level1}
     Rifle		{sell weapons;sell weapons;buy rifle;itemact rifle}
 }
-  #+end_src
+#+end_src
 
-  It create next menus for different teams:
+  You need run voltron to produce menu and install quake files:
 
-| menu | team A (aliens) | team B (humans)     | Spectator |
-| /    | <               | <                   | <         |
-|------+-----------------+---------------------+-----------|
-| root | Sub Menus:      | Sub Menus:          |           |
-|      | 1. Evolve       | 1. Buy              |           |
-|------+-----------------+---------------------+-----------|
-| 1    | Evolve to:      | Buy:                |           |
-|      | 1. Dretch       | 1. Construction Kit |           |
-|      | 2. Basilisk     | 2. rifle            |           |
+  #+begin_example
+%tclsh voltron.tcl youronfig
+==> Generate menu:
+Hud file: chatmenu_alien.cfg
+Hud file: chatmenu_human.cfg
+Hud file: chatmenu_spec.cfg
+==> Generate exec scripts:
+EXEC script for all: chatmenu_install.cfg
+EXEC script team a: chatmenu_alien_install.cfg
+EXEC script team b: chatmenu_human_install.cfg
+EXEC script team s: chatmenu_spect_install.cfg
+%
+  #+end_example
+
+  After you can copy created files in =ui/hud/common= for example.  If
+  you don't use volt HUD then you must include all =chatmenu_*.cfg= in
+  your  .menu  file, and  do  exec  command  for one  of  *install.cfg
+  files. It create next menus for different teams:
+
+| menu   | team A (aliens) | team B (humans)     | Spectator |
+| /      | <               | <                   | <         |
+|--------+-----------------+---------------------+-----------|
+| root   | Sub Menus:      | Sub Menus:          |           |
+|        | 1. Evolve       | 1. Buy              |           |
+|--------+-----------------+---------------------+-----------|
+| menu 1 | Evolve to:      | Buy:                |           |
+|        | 1. Dretch       | 1. Construction Kit |           |
+|        | 2. Basilisk     | 2. rifle            |           |
 
   Full syntax of menu is: 
+
   #+begin_example -r
  set X. {							(ref:root)
      {MenuTextForAll MenuHeaderForAll}	CommandForAll	
@@ -83,16 +104,17 @@ set 1.2. {
  - =chatmenu_human_install.cfg= - humans specified commands;  
  - =chatmenu_spect_install.cfg= - spectate specified commands;
 
-  You may need load him when you _join_ to team. For example by adding in your menu or using [[bind]] command:
+  You may need load him when you _join_ to team. For example by adding
+  in your menu or using [[bind]] command:
 
 #+begin_src tcl
 set snd_menuoff sound/misc/menu3
 set snd_menuon  sound/misc/menu1.wav
 # menu example
 set 0. {{Join "Join:"}			{play $snd_menuon} }
-set 0.1. {"Load alien's binds"		{team aliens;exec ui/hud/common/chatmenu_alien_install.cfg;play $snd_menuoff}}
-set 0.2. {"Load human's binds"		{team humans;exec ui/hud/common/chatmenu_human_install.cfg;play $snd_menuoff}}
-set 0.3. {"Load spectate binds"		{team spectate;exec ui/hud/common/chatmenu_spect_install.cfg;play $snd_menuoff}}
+set 0.1. {"Load alien's binds"		{exec ui/hud/common/chatmenu_alien_install.cfg;play $snd_menuoff}}
+set 0.2. {"Load human's binds"		{exec ui/hud/common/chatmenu_human_install.cfg;play $snd_menuoff}}
+set 0.3. {"Load spectate binds"		{exec ui/hud/common/chatmenu_spect_install.cfg;play $snd_menuoff}}
 set 0.6. {"Joint alien"			{team aliens;exec ui/hud/common/chatmenu_alien_install.cfg;play $snd_menuoff}}
 set 0.7. {"Joint human"			{team humans;exec ui/hud/common/chatmenu_human_install.cfg;play $snd_menuoff}}
 set 0.8. {"Joint spectate"		{team spectate;exec ui/hud/common/chatmenu_spect_install.cfg;play $snd_menuoff}}
@@ -109,10 +131,10 @@ bind F9 "exec ui/hud/common/chatmenu_spect_install.cfg"
     Chat menu output file name  for team A.  Default is "=chatmenu_alien.cfg=".
 
 *** =chatmenu_teamb=
-    Chat menu output file name for team B.  Default is "=chatmenu_alien.cfg=".
+    Chat menu output file name for team B.  Default is "=chatmenu_human.cfg=".
 
 *** =chatmenu_spect=
-    Chat menu output file name for spectator. Default is "=chatmenu_alien.cfg=".
+    Chat menu output file name for spectator. Default is "=chatmenu_spec.cfg=".
 
 *** =chatmenu_install=
     Main chat menu install script that contain all merged binds for all
@@ -166,6 +188,7 @@ set menu_spectator_tmpl "    rect 6 210 400 190
 *** postInstall
    Text of install script that be at and. Default is volt's binds like
    sound control etc. You can easy add some stuff:
+
 #+begin_src tcl
 set postInstall "$postInstall
 // some addition stuf
