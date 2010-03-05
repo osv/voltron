@@ -2,7 +2,7 @@
                            ================
 
 Author: Olexandr Sydorchuk <olexandr_syd [at] users.sourceforge.net>
-Date: 2010-03-03 18:06:09 UTC
+Date: 2010-03-05 12:44:12 UTC
 
 
 Table of Contents
@@ -22,8 +22,9 @@ Table of Contents
         2.1.10 `backspace_cmd' 
         2.1.11 `fileSplitSize' 
         2.1.12 bind 
-        2.1.13 postInstall 
-        2.1.14 `messages-from-file' 
+        2.1.13 bindTeam 
+        2.1.14 postInstall 
+        2.1.15 `messages-from-file' 
 
 
 1 Overview 
@@ -224,7 +225,35 @@ Table of Contents
    `bind' add additional key bind  at end of install script, it similar
    to quake bind.
 
-2.1.13 postInstall 
+2.1.13 bindTeam 
+----------------
+    `bindTeam' is  quake bind command,  but team specified  bind. Like
+    menu you can load  different `*_install' config file for different
+    teams, and  all binds with  this command will  be only for  one of
+    team. Format of command:
+
+  bindTeams key {
+       commandForAll
+       commandForTeamA
+       commandForTeamB
+       commandForTeamSpec
+   }
+
+
+    Example: bind INSERT key to spawn as *(Adv)graner* if you in alien
+    team or spawn as *human* *builder* and take ckit if you are human:
+
+  set snd_menuoff "sound/misc/menu3"
+  
+  bindTeams INS {
+      {echo ^1Spawn as builder;play $snd_menuoff}
+      {class builderupg;class builder}
+      {class ackit; class ckit;sell weapons;sell upgrades;buy ackit; buy ckit;itemact ackit;itemact ckit}
+      {echo ^1You are spectate}
+  }
+
+
+2.1.14 postInstall 
 -------------------
    Text of install script that be at and. Default is volt's binds like
    sound control etc. You can easy add some stuff:
@@ -236,7 +265,7 @@ Table of Contents
 
  
 
-2.1.14 `messages-from-file' 
+2.1.15 `messages-from-file' 
 ----------------------------
    Create  messages  list  that  allow  you cyclic  run  some  command
    (default is "say" command).  Format of command:

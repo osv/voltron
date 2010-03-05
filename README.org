@@ -185,6 +185,35 @@ set menu_spectator_tmpl "    rect 6 210 400 190
    =bind= add additional key bind  at end of install script, it similar
    to quake bind.
 
+*** bindTeam
+    =bindTeam= is  quake bind command,  but team specified  bind. Like
+    menu you can load  different =*_install= config file for different
+    teams, and  all binds with  this command will  be only for  one of
+    team. Format of command:
+
+#+begin_example
+bindTeams key {
+     commandForAll
+     commandForTeamA
+     commandForTeamB
+     commandForTeamSpec
+ }
+#+end_example
+
+    Example: bind INSERT key to spawn as *(Adv)graner* if you in [[(btalien)][alien]]
+    team or spawn as *human* *builder* and take ckit if you are [[(bthuman)][human]]:
+
+#+begin_src tcl -r
+set snd_menuoff "sound/misc/menu3"
+
+bindTeams INS {
+    {echo ^1Spawn as builder;play $snd_menuoff}
+    {class builderupg;class builder}									(ref:btalien)
+    {class ackit; class ckit;sell weapons;sell upgrades;buy ackit; buy ckit;itemact ackit;itemact ckit} (ref:bthuman)
+    {echo ^1You are spectate}
+}
+#+end_src
+
 *** postInstall
    Text of install script that be at and. Default is volt's binds like
    sound control etc. You can easy add some stuff:
