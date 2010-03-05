@@ -113,7 +113,7 @@ proc messages-from-file {varname f_source f_dest execpath {prefix {}} {sufix {}}
 
 	incr i
     }
-    puts $fd "$msg; set ${varname} vstr ${varname}1\""
+    puts $fd "$msg set ${varname} vstr ${varname}1\""
     puts $fd "// end."
     close $fs
     close $fd
@@ -125,6 +125,21 @@ proc messages-from-file {varname f_source f_dest execpath {prefix {}} {sufix {}}
 proc bind  {key command} {
     global binds
     set binds($key) $command
+}
+
+#----------------------------------------
+# Team specified binds
+# usage:
+# bindTeams key {
+#     commandForAll
+#     commandForTeamA
+#     commandForTeamB
+#     commandForTeamSpec
+# }
+#----------------------------------------
+proc bindTeams  {key binds} {
+    global team_binds
+    set team_binds($key) $binds
 }
 
 proc split-file {filename fileSplitSize} {
@@ -381,7 +396,7 @@ puts2All ""
 
 # binds
 set keys [array names binds]
-if {[llength $keys] != 0} {
+if {[llength $keys] > 0} {
     puts2All "// user's binds"
     foreach key $keys {
 	puts2All "bind \"$key\" \"$binds($key)\""
@@ -389,6 +404,23 @@ if {[llength $keys] != 0} {
     puts2All ""
 }
 
+# teams specified binds
+set team_keys [array names team_binds]
+if {[llength team_keys] >0} {
+    puts2All "// team specified binds"
+    foreach tb $team_keys {
+	set key [lindex [split $tb :] 0]
+	eval set cmdAll \"[lindex $team_binds($tb) 0]\"
+	eval set cmdTeamA \"[lindex $team_binds($tb) 1]\"
+	eval set cmdTeamB \"[lindex $team_binds($tb) 2]\"
+	eval set cmdSpec \"[lindex $team_binds($tb) 3]\"
+	puts $fh_m "bind $key \"$cmdAll;$cmdTeamA;$cmdTeamB;$cmdSpec\""
+	puts $fh_a "bind $key \"$cmdAll;$cmdTeamA\""
+	puts $fh_b "bind $key \"$cmdAll;$cmdTeamB\""
+	puts $fh_s "bind $key \"$cmdAll;$cmdSpec\""
+    }
+    puts2All "// end team specified keys"
+}
 # msg file
 foreach {var src exec} $msgexec {
     puts2All "// msg list from [file tail $src], variable for vstr: $var"

@@ -179,7 +179,7 @@ set 2.-. {Flank "say_team ${prefix}Flank!${sufix}"}
 set 2.=. {"Where to?" "say_team ${prefix}Where to?${sufix}"}
 
 set 3. {{Order "Send Order:"}	{play $snd_menuon} }
-set 3.1 {"I need backup!"	"say_team ${prefix}I need backup!${prefix}"}
+set 3.1 {"I need backup!"	"say_team ${prefix}I need backup!${sufix}"}
 set 3.2 {"We need builders"	"say_team ${prefix}We need builders!${sufix}"}
 set 3.3 {"We need spawns"	"say_team ${prefix}We need spawns!${sufix}"}
 set 3.4 {"We need to regroup"	"say_team ${prefix}We need to regroup!${sufix}"}
@@ -227,7 +227,9 @@ set 4.6. { {} {}
 
 set 4.7. { {} {}
     Barricade			"build barricade"
-    Tesla			"build tesla"}
+    Tesla			"build tesla"
+}
+
 set 4.8. { {} {}
     Repeater			"build repeater"
     Hovel			"build hovel"
@@ -254,6 +256,22 @@ set 0.3. {Spectate	{team spectate;exec ui/hud/common/chatmenu_spect_install.cfg;
 
 # You can use here bind command
 bind F3 "say_team ${prefix}Sorry${sufix}"
+
+# Team specified binds
+# usage:
+# bindTeams key {
+#     commandForAll
+#     commandForTeamA
+#     commandForTeamB
+#     commandForTeamSpec
+# }
+# spawn as builder
+bindTeams INS {
+    {echo ^1Spawn as builder;play $snd_menuoff}
+    {class builderupg;class builder}
+    {class ackit; class ckit;sell weapons;sell upgrades;buy ackit; buy ckit;itemact ackit;itemact ckit}
+    {echo ^1You are spectate}
+}
 
 # # Other bind. postInstall variable contain additional script code
 # # Below is default value:
