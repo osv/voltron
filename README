@@ -2,7 +2,7 @@
                            ================
 
 Author: Olexandr Sydorchuk <olexandr_syd [at] users.sourceforge.net>
-Date: 2010-03-05 12:44:12 UTC
+Date: 2010-03-05 13:02:12 UTC
 
 
 Table of Contents
@@ -22,7 +22,7 @@ Table of Contents
         2.1.10 `backspace_cmd' 
         2.1.11 `fileSplitSize' 
         2.1.12 bind 
-        2.1.13 bindTeam 
+        2.1.13 bindTeams 
         2.1.14 postInstall 
         2.1.15 `messages-from-file' 
 
@@ -225,12 +225,12 @@ Table of Contents
    `bind' add additional key bind  at end of install script, it similar
    to quake bind.
 
-2.1.13 bindTeam 
-----------------
-    `bindTeam' is  quake bind command,  but team specified  bind. Like
-    menu you can load  different `*_install' config file for different
-    teams, and  all binds with  this command will  be only for  one of
-    team. Format of command:
+2.1.13 bindTeams 
+-----------------
+    `bindTeams' is  quake bind command, but team  specified bind. Like
+    menu  you  can  load  different `*_install.cfg'  config  file  for
+    different teams, and all binds  with this command will be only for
+    one of team. Format of command:
 
   bindTeams key {
        commandForAll

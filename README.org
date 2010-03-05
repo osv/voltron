@@ -185,11 +185,11 @@ set menu_spectator_tmpl "    rect 6 210 400 190
    =bind= add additional key bind  at end of install script, it similar
    to quake bind.
 
-*** bindTeam
-    =bindTeam= is  quake bind command,  but team specified  bind. Like
-    menu you can load  different =*_install= config file for different
-    teams, and  all binds with  this command will  be only for  one of
-    team. Format of command:
+*** bindTeams
+    =bindTeams= is  quake bind command, but team  specified bind. Like
+    menu  you  can  load  different =*_install.cfg=  config  file  for
+    different teams, and all binds  with this command will be only for
+    one of team. Format of command:
 
 #+begin_example
 bindTeams key {
