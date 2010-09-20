@@ -40,12 +40,12 @@
 set chatmenu_teama "~/.tremulous/base/ui/hud/common/chatmenu_alien.cfg"
 # #----------------------------------------
 # # Chat menu output files for team B
-# # default is "chatmenu_alien.cfg"
+# # default is "chatmenu_human.cfg"
 set chatmenu_teamb "~/.tremulous/base/ui/hud/common/chatmenu_human.cfg"
 
 # #----------------------------------------
 # # Chat menu output files for spectator
-# # default is "chatmenu_alien.cfg"
+# # default is "chatmenu_spec.cfg"
 set chatmenu_spect "~/.tremulous/base/ui/hud/common/chatmenu_spec.cfg"
 
 # #----------------------------------------
@@ -103,12 +103,12 @@ set 1. {
 set 1.1. {  
     ""			{play $snd_menuoff}
     "Dretch"		{class level0}
-    "Construction Kit"	{sell weapons;sell upgrades;buy ackit; buy ckit;itemact ackit;itemact ckit}
+    "Construction Kit"	{sell weapons;sell upgrades;class ckit; buy ackit; buy ckit;itemact ackit;itemact ckit}
 }
 set 1.2. {
     ""			{play $snd_menuoff}
     Basilisk		{class level1}
-    Rifle		{sell weapons;sell weapons;buy rifle;itemact rifle}
+    Rifle		{sell weapons;sell weapons;class rifle; buy rifle;itemact rifle}
 }
 set 1.3. {
     ""			{play $snd_menuoff}
@@ -145,12 +145,14 @@ set 1.8. {
 }
 set 1.9. {
     ""			{play $snd_menuoff}
-    {}			{}
+    {Adv goon, asssum}	{class level3upg; vstr AlienJoin}
     Flamethrower	{sell weapons;sell weapons;buy flamer;itemact flamer}
 }
+
+
 set 1.0. {
     ""			{play $snd_menuoff}
-    {}			{}
+    Tyrant		{class level4;vstr AlienJoin}
     "Lucifer Cannon"	{sell weapons;sell weapons;buy lcannon;itemact lcannon;buy battpack}
 }
 set 1.-. {
@@ -179,22 +181,22 @@ set 2.-. {Flank "say_team ${prefix}Flank!${sufix}"}
 set 2.=. {"Where to?" "say_team ${prefix}Where to?${sufix}"}
 
 set 3. {{Order "Send Order:"}	{play $snd_menuon} }
-set 3.1 {"I need backup!"	"say_team ${prefix}I need backup!${sufix}"}
-set 3.2 {"We need builders"	"say_team ${prefix}We need builders!${sufix}"}
-set 3.3 {"We need spawns"	"say_team ${prefix}We need spawns!${sufix}"}
-set 3.4 {"We need to regroup"	"say_team ${prefix}We need to regroup!${sufix}"}
-set 3.5 {"Follow me"		"say_team ${prefix}Follow me!${sufix}"}
-set 3.6 {"Attack"		"say_team ${prefix}Attack!${sufix}"}
-set 3.7 {"Defend our base"	"say_team ${prefix}Defend our base!${sufix}"}
-set 3.8 {"Stay alive"		"say_team ${prefix}Stay alive!${sufix}"}
-set 3.9 {"Hold back"		"say_team ${prefix}Hold back!${sufix}"}
-set 3.0 {"Clear the path"	"say_team ${prefix}Clear the path!${sufix}"}
-set 3.- {
+set 3.1. {"I need backup!"	"say_team ${prefix}I need backup!${sufix}"}
+set 3.2. {"We need builders"	"say_team ${prefix}We need builders!${sufix}"}
+set 3.3. {"We need spawns"	"say_team ${prefix}We need spawns!${sufix}"}
+set 3.4. {"We need to regroup"	"say_team ${prefix}We need to regroup!${sufix}"}
+set 3.5. {"Follow me"		"say_team ${prefix}Follow me!${sufix}"}
+set 3.6. {"Attack"		"say_team ${prefix}Attack!${sufix}"}
+set 3.7. {"Defend our base"	"say_team ${prefix}Defend our base!${sufix}"}
+set 3.8. {"Stay alive"		"say_team ${prefix}Stay alive!${sufix}"}
+set 3.9. {"Hold back"		"say_team ${prefix}Hold back!${sufix}"}
+set 3.0. {"Clear the path"	"say_team ${prefix}Clear the path!${sufix}"}
+set 3.-. {
     {} {}
     "Enemy telenode down"	"say_team ${prefix}Enemy TELENODE down${sufix}"
     "Enemy egg down"		"say_team ${prefix}Enemy EGG down${sufix}"
 }
-set 3.= {
+set 3.=. {
     {} {}
     "Enemy Reactor down"	"say_team ${prefix}Enemy Reactor down${sufix}"
     "Enemy Overmind down"	"say_team ${prefix}Enemy Overmind down${sufix}"
@@ -227,29 +229,52 @@ set 4.6. { {} {}
 
 set 4.7. { {} {}
     Barricade			"build barricade"
-    Tesla			"build tesla"
-}
-
+    Tesla			"build tesla"}
 set 4.8. { {} {}
     Repeater			"build repeater"
     Hovel			"build hovel"
 }
  
 set 5. {{Admin "Admin:"}	{play $snd_menuon} }
-set 5.1 {"!namelog"		"!namelog;toggleconsole"}
-set 5.2 {"!buildlog humans"	"!buildlog h;toggleconsole"}
-set 5.3 {"!buildlog aliens"	"!buildlog a;toggleconsole"}
-set 5.4 {!pause			"!pause 0"}
-set 5.5 {!listplayers		"!listplayers;toggleconsole"}
-set 5.6 {!allready		"!allready"}
-set 5.7 {!spec999		"!spec999"}
-set 5.8 {"!lock aliens"		"!lock a;vstr menu0"}
-set 5.9 {"!lock humans"		"!lock h;vstr menu0"}
-set 5.0 {!passvote		"!passvote"}
-set 5.- {!cancelvote		"!cancelvote"}
-set 5.= {!unlockteams		"!unlock h;!unlock a;vstr menu0"}
+set 5.1. {"!namelog"		"!namelog;toggleconsole"}
+set 5.2. {"!buildlog humans"	"!buildlog h;toggleconsole"}
+set 5.3. {"!buildlog aliens"	"!buildlog a;toggleconsole"}
+set 5.4. {!pause			"!pause 0"}
+set 5.5. {!listplayers		"!listplayers;toggleconsole"}
+set 5.6. {!allready		"!allready"}
+set 5.7. {!spec999		"!spec999"}
+set 5.8. {"!lock aliens"		"!lock a;vstr menu0"}
+set 5.9. {"!lock humans"		"!lock h;vstr menu0"}
+set 5.0. {!passvote		"!passvote"}
+set 5.-. {!cancelvote		"!cancelvote"}
+set 5.=. {!unlockteams		"!unlock h;!unlock a;vstr menu0"}
 
-set 0. {{Join "Join:"}		{play $snd_menuon} }
+set 6. {{"Base state" "Base state:"} {play $snd_menuon}}
+set 6.5. { {} {}
+    "^1OM 50 percent"		{say_team ${prefix}Our ^1OM^5: \[==========>__________\] 50 perc${sufix}}
+    "^1RC 50 percent"		{say_team ${prefix}Our ^1RC^5: \[==========>__________\] 50 perc${sufix}}
+}
+set 6.6. {
+    "Base: ^3Low danger" {say_team ${prefix}Base under attack: ^3Low danger${sufix}}
+}
+set 6.7. { {} {}
+    "^3OM 75 percent"	{say_team ${prefix}Our ^1OM^5: \[===============>_____\] 75 perc${sufix}}
+    "^3RC 75 percent"	{say_team ${prefix}Our ^1RC^5: \[===============>_____\] 75 perc${sufix}}
+}
+set 6.8. {
+    "Base: ^1High danger" {say_team ${prefix}Base under attack: ^1HIGH DANGER${sufix}}
+}
+set 6.0. {
+    "Base: ^5Clear" {say_team ${prefix}Base clear${sufix}}
+}
+
+set 7. {{"Tactic" "Tactic group:"}	{play $snd_menuon}}
+set 7.1. {"Tunel/vent"			{say_team ${prefix}Tunel/Vent${sufix}} }
+set 7.2. {"Front"			{say_team ${prefix}Front${sufix}} }
+set 7.7. {"Cover me!"			{say_team ${prefix}Cover me!${sufix}} }
+set 7.8. {"I cover you!"		{say_team ${prefix}I cover you${sufix}} }
+
+set 0. {{^1Join "^1Join:"}		{play $snd_menuon} }
 set 0.1. {Alien		{team aliens;exec ui/hud/common/chatmenu_alien_install.cfg;play $snd_menuoff}}
 set 0.2. {Human		{team humans;exec ui/hud/common/chatmenu_human_install.cfg;play $snd_menuoff}}
 set 0.3. {Spectate	{team spectate;exec ui/hud/common/chatmenu_spect_install.cfg;play $snd_menuoff}}
