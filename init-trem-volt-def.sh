@@ -5,7 +5,7 @@
 # install volt hud,
 # build chat menu from sample file (by default), and install it
 #
-# Require: wget, git, unzip, tclsh
+# Require: wget, unzip, tclsh
 
 # Variables:
 # home trem base dir, maybe tremfusion u use?
@@ -29,9 +29,20 @@ echo "===>  Download Volt_hud2.0_FINAL.zip"
 sleep 1
 wget -c http://networkofdoom.net/~bishop3space/Tremulous/Projects/Hud/Volt_hud/Release/Volt_hud2.0_FINAL.zip
 
-echo "===>  git clone voltron"
+echo "===>  Download voltron"
 sleep 1
-git clone git://github.com/osv/voltron.git
+mkdir voltron &>/dev/null
+wget -nc -P ./voltron http://github.com/osv/voltron/raw/master/voltron.tcl
+if [ "$?" -ne "0" ]; then
+  echo "Cannot download voltron.tcl."
+  exit 1
+fi
+
+wget -nc -P ./voltron http://github.com/osv/voltron/raw/master/volt.config.tcl.sample
+if [ "$?" -ne "0" ]; then
+  echo "Cannot download voltron sample config file"
+  exit 1
+fi
 
 rm -rf Volt_hud2.0_FINAL/*
 
