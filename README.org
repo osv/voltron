@@ -231,11 +231,15 @@ exec foobaar.cfg"
 
    =messages-from-file variable_name file_source file_dest execpath {prefix {}} {sufix {}} {command {"say"}}=
 
-   -  =variable_name=  is  quake  var  that  you  can  use  by  "=vstr
-     variable_name=" (good to bind some key to it);
-   - =file_source= - source file of lines;
+   -  =variable_name=  is  quake  var  that  you  can  use  by  =vstr
+     variable_name= (good to bind some key to it);
+   - =file_source= - source file  of lines, file also will be searched
+     in directory where configure file is located;
    - =file_dest= - generated configfile location;
    - =execpath= - quakebased path to file;
+   - =prefix=,  =sufix= -  text that be  concatenate before  and after
+     each line of text file;
+   - =command= - action to each line of text file (default =say=);
 
    For example you wish to say different "hello". You have file =hello.txt=:
 

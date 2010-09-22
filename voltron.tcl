@@ -77,12 +77,22 @@ set Volt_vol08 \"set s_volume 1.6; set Volt_vol- vstr Volt_vol07; set Volt_vol+ 
 # @execpath - path where to script in quake space (like ui/hus/common/msg.cfg)
 # @prefix - prefix for msg, it will be added to each msg
 # @sufix - sufix for msg
+# @command - command for message (default `say`)
 #----------------------------------------
 # msgexec contain varname source file  and execpath for msg file
 variable msgexec {}
 proc messages-from-file {varname f_source f_dest execpath {prefix {}} {sufix {}} {command {"say"}}} {
-    global msgexec
+    global msgexec config_file
     catch {file mkdir [file dirname  $f_dest]}
+    if {![file exist $f_source]} {
+	set f_s [file join [file dirname $config_file] $f_source]
+	if {![file exist $f_s]} {
+	    puts "Error: Message file not found: $f_source"
+	    exit
+	} else {
+	    set f_source $f_s
+	}
+    }
     set fs [open $f_source r]
     set fd [open $f_dest w]
     lappend msgexec $varname
