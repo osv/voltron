@@ -8,7 +8,7 @@ lang="en" xml:lang="en">
 <title>Using of voltron</title>
 <meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
 <meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2010-03-05 13:02:23 UTC"/>
+<meta name="generated" content="2010-09-26 23:45:50 UTC"/>
 <meta name="author" content="Olexandr Sydorchuk"/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
@@ -77,7 +77,11 @@ lang="en" xml:lang="en">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1 Overview </a></li>
+<li><a href="#sec-1">1 Overview </a>
+<ul>
+<li><a href="#sec-1.1">1.1 Basic Usage: </a></li>
+</ul>
+</li>
 <li><a href="#sec-2">2 Creating chat menu </a>
 <ul>
 <li><a href="#sec-2.1">2.1 Customising </a>
@@ -116,6 +120,30 @@ Voltron is generator of chatmenu for different HUDs of several games
 binds into config  file, create message list and  auto split file if
 need.
 </p>
+
+</div>
+
+<div id="outline-container-1.1" class="outline-3">
+<h3 id="sec-1.1"><span class="section-number-3">1.1</span> Basic Usage: </h3>
+<div class="outline-text-3" id="text-1.1">
+
+<p>You need  to have  tcl to use  voltron. Created configure  file you
+must pass to voltron:
+</p>
+
+
+
+<pre class="example">%tclsh voltron.tcl yourconfig
+</pre>
+
+
+
+
+<p>
+You can  use sample  configure file <a href="http://github.com/osv/voltron/blob/master/volt.config.tcl.sample">volt.config.tcl.sample</a>  as your
+base configure file.
+</p>
+</div>
 </div>
 
 </div>
@@ -142,12 +170,12 @@ simple menu:
 <span class="linenr"> 9:  </span>}
 <span class="linenr">10:  </span><span style="color: #da70d6;">set</span> <span style="color: #b8860b;">1</span>.1. {  
 <span class="linenr">11:  </span>    <span style="color: #bc8f8f;">""</span>                  {play $<span style="color: #b8860b;">snd_menuoff</span>}
-<span class="linenr">12:  </span>    <span style="color: #bc8f8f;">"Dretch"</span>            {<span style="color: #a020f0;">class</span> level0}
+<span class="linenr">12:  </span>    <span style="color: #bc8f8f;">"Dretch"</span>            {<span style="color: #a020f0; font-weight: bold;">class</span> level0}
 <span class="linenr">13:  </span>    <span style="color: #bc8f8f;">"Construction Kit"</span>  {sell weapons;sell upgrades;buy ackit; buy ckit;itemact ackit;itemact ckit}
 <span class="linenr">14:  </span>}
 <span class="linenr">15:  </span><span style="color: #da70d6;">set</span> <span style="color: #b8860b;">1</span>.2. {
 <span class="linenr">16:  </span>    <span style="color: #bc8f8f;">""</span>                  {play $<span style="color: #b8860b;">snd_menuoff</span>}
-<span class="linenr">17:  </span>    Basilisk            {<span style="color: #a020f0;">class</span> level1}
+<span class="linenr">17:  </span>    Basilisk            {<span style="color: #a020f0; font-weight: bold;">class</span> level1}
 <span class="linenr">18:  </span>    Rifle               {sell weapons;sell weapons;buy rifle;itemact rifle}
 <span class="linenr">19:  </span>}
 </pre>
@@ -156,12 +184,12 @@ simple menu:
 
 
 <p>
-You need run voltron to produce menu and install quake files:
+If you save this sample and run voltron to produce menu:
 </p>
 
 
 
-<pre class="example">%tclsh voltron.tcl youronfig
+<pre class="example">%tclsh voltron.tcl yourconfig
 ==&gt; Generate menu:
 Hud file: chatmenu_alien.cfg
 Hud file: chatmenu_human.cfg
@@ -178,10 +206,10 @@ EXEC script team s: chatmenu_spect_install.cfg
 
 
 <p>
-After you can copy created files in <code>ui/hud/common</code> for example.  If
-you don't use volt HUD then you must include all <code>chatmenu_*.cfg</code> in
-your  .menu  file, and  do  exec  command  for one  of  *install.cfg
-files. It create next menus for different teams:
+After you must copy (if you not set <a href="#sec-2.1.2">variables</a> in your configure file
+before) created files in <code>ui/hud/common</code> for example.  <b>If you don't   use volt  HUD</b> then  you must include  all <code>chatmenu_*.cfg</code>  in your
+.menu file,  and do exec command  for one of  *install.cfg files. It
+create next menus for different teams:
 </p>
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption></caption>
@@ -212,10 +240,10 @@ Full syntax of menu is:
 
 
 <pre class="example"><span id="coderef-root" class="coderef-off">set X. {</span>
-    {MenuTextForAll MenuHeaderForAll}  CommandForAll   
-    {MenuAlienText MenuHeaderForAlien} AlienCommands
-    {MenuHumText MenuHeaderForHuman}   HumCommands
-    {MenuSpecText MenuHeaderForSpec}   SpectatorCommands
+<span id="coderef-cmd4all" class="coderef-off">    {MenuTextForAll MenuHeaderForAll}  CommandForAll</span>
+<span id="coderef-cmd4ali" class="coderef-off">    {MenuAlienText MenuHeaderForAlien} AlienCommands</span>
+<span id="coderef-cmd4hum" class="coderef-off">    {MenuHumText MenuHeaderForHuman}   HumCommands</span>
+<span id="coderef-cmd4spec" class="coderef-off">    {MenuSpecText MenuHeaderForSpec}   SpectatorCommands</span>
 }
 
 set X.Y. {
@@ -230,11 +258,11 @@ set X.Y. {
 
 
 <p>
-Here  is  list  of 4  pairs:  <code>all</code>,  <code>team  a</code> (aliens),  <code>team  b</code>
-(humans), <code>spectator</code>.  First element of  pair is name of menu item,
-second  - command  for it.   If its  a <a href="#coderef-root" class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-root');" onmouseout="CodeHighlightOff(this, 'coderef-root');">root</a>  menu item  than first
-element  is pair  of name  of  menu item  and header  name of  child
-submenu. Values of pair <code>all</code> is joined to other pairs.
+Here is  list of  4 pairs:  <a href="#coderef-cmd4all" class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-cmd4all');" onmouseout="CodeHighlightOff(this, 'coderef-cmd4all');">all</a>, <a href="#coderef-cmd4ali" class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-cmd4ali');" onmouseout="CodeHighlightOff(this, 'coderef-cmd4ali');">team a</a>  (aliens), <a href="#coderef-cmd4hum" class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-cmd4hum');" onmouseout="CodeHighlightOff(this, 'coderef-cmd4hum');">team  b</a> (humans),
+<a href="#coderef-cmd4spec" class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-cmd4spec');" onmouseout="CodeHighlightOff(this, 'coderef-cmd4spec');">spectator</a>.  First  element of  pair is name  of menu item,  second -
+command for  it.  If its  a <a href="#coderef-root" class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-root');" onmouseout="CodeHighlightOff(this, 'coderef-root');">root</a> menu  item than first  element is
+pair of name  of menu item and header name  of child submenu. Values
+of pair <code>all</code> is joined to other pairs.
 </p>
 <p>
 You can take different menu action for different teams, but you need
@@ -249,17 +277,19 @@ have no several  "say" command for different teams  (i.e. you setup
 only <code>CommandForAll</code>).
 </li>
 <li>
-<code>chatmenu_alien_install.cfg</code> - aliens specified commands;
+<code>chatmenu_alien_install.cfg</code>  - aliens specified  commands, you may
+need load him when you <span style="text-decoration:underline;">join</span> to team;
 </li>
 <li>
-<code>chatmenu_human_install.cfg</code> - humans specified commands;  
+<code>chatmenu_human_install.cfg</code> - humans specified commands, you may
+need load him when you <span style="text-decoration:underline;">join</span> to team;
 </li>
 <li>
-<code>chatmenu_spect_install.cfg</code> - spectate specified commands;
+<code>chatmenu_spect_install.cfg</code> - spectate specified commands, you may
+need load him when you <span style="text-decoration:underline;">join</span> to team;
 
 <p>
-You may need load him when you <span style="text-decoration:underline;">join</span> to team. For example by adding
-in your menu or using <a href="#sec-2.1.12">bind</a> command:
+Example of usage <code>chatmenu_*_install.cfg</code> files is below:
 </p>
 
 </li>
@@ -268,16 +298,13 @@ in your menu or using <a href="#sec-2.1.12">bind</a> command:
 
 <pre class="src src-tcl"><span style="color: #da70d6;">set</span> <span style="color: #b8860b;">snd_menuoff</span> sound/misc/menu3
 <span style="color: #da70d6;">set</span> <span style="color: #b8860b;">snd_menuon</span>  sound/misc/menu1.wav
-<span style="color: #b22222;"># </span><span style="color: #b22222;">menu example
+<span style="color: #888888;"># </span><span style="color: #b22222; font-style: italic;">menu example
 </span><span style="color: #da70d6;">set</span> <span style="color: #b8860b;">0</span>. {{Join <span style="color: #bc8f8f;">"Join:"</span>}                  {play $<span style="color: #b8860b;">snd_menuon</span>} }
-<span style="color: #da70d6;">set</span> <span style="color: #b8860b;">0</span>.1. {<span style="color: #bc8f8f;">"Load alien's binds"</span>          {<span style="color: #da70d6;">exec</span> ui/hud/common/chatmenu_alien_install.cfg;play $<span style="color: #b8860b;">snd_menuoff</span>}}
-<span style="color: #da70d6;">set</span> <span style="color: #b8860b;">0</span>.2. {<span style="color: #bc8f8f;">"Load human's binds"</span>          {<span style="color: #da70d6;">exec</span> ui/hud/common/chatmenu_human_install.cfg;play $<span style="color: #b8860b;">snd_menuoff</span>}}
-<span style="color: #da70d6;">set</span> <span style="color: #b8860b;">0</span>.3. {<span style="color: #bc8f8f;">"Load spectate binds"</span>         {<span style="color: #da70d6;">exec</span> ui/hud/common/chatmenu_spect_install.cfg;play $<span style="color: #b8860b;">snd_menuoff</span>}}
-<span style="color: #da70d6;">set</span> <span style="color: #b8860b;">0</span>.6. {<span style="color: #bc8f8f;">"Joint alien"</span>                 {team aliens;<span style="color: #da70d6;">exec</span> ui/hud/common/chatmenu_alien_install.cfg;play $<span style="color: #b8860b;">snd_menuoff</span>}}
-<span style="color: #da70d6;">set</span> <span style="color: #b8860b;">0</span>.7. {<span style="color: #bc8f8f;">"Joint human"</span>                 {team humans;<span style="color: #da70d6;">exec</span> ui/hud/common/chatmenu_human_install.cfg;play $<span style="color: #b8860b;">snd_menuoff</span>}}
-<span style="color: #da70d6;">set</span> <span style="color: #b8860b;">0</span>.8. {<span style="color: #bc8f8f;">"Joint spectate"</span>              {team spectate;<span style="color: #da70d6;">exec</span> ui/hud/common/chatmenu_spect_install.cfg;play $<span style="color: #b8860b;">snd_menuoff</span>}}
-<span style="color: #b22222;"># </span><span style="color: #b22222;">bind example
-</span>bind F9 <span style="color: #bc8f8f;">"exec ui/hud/common/chatmenu_spect_install.cfg"</span>
+<span style="color: #da70d6;">set</span> <span style="color: #b8860b;">0</span>.1. {<span style="color: #bc8f8f;">"Joint alien"</span>                 {team aliens;<span style="color: #da70d6;">exec</span> ui/hud/common/chatmenu_alien_install.cfg;play $<span style="color: #b8860b;">snd_menuoff</span>}}
+<span style="color: #da70d6;">set</span> <span style="color: #b8860b;">0</span>.2. {<span style="color: #bc8f8f;">"Joint human"</span>                 {team humans;<span style="color: #da70d6;">exec</span> ui/hud/common/chatmenu_human_install.cfg;play $<span style="color: #b8860b;">snd_menuoff</span>}}
+<span style="color: #da70d6;">set</span> <span style="color: #b8860b;">0</span>.3. {<span style="color: #bc8f8f;">"Joint spectate"</span>              {team spectate;<span style="color: #da70d6;">exec</span> ui/hud/common/chatmenu_spect_install.cfg;play $<span style="color: #b8860b;">snd_menuoff</span>}}
+<span style="color: #888888;"># </span><span style="color: #b22222; font-style: italic;">bind example, select spectate team
+</span>bind F9 <span style="color: #bc8f8f;">"team spectate; exec ui/hud/common/chatmenu_spect_install.cfg"</span>
 </pre>
 
 
@@ -305,10 +332,10 @@ in your menu or using <a href="#sec-2.1.12">bind</a> command:
 </div>
 
 <div id="outline-container-2.1.2" class="outline-4">
-<h4 id="sec-2.1.2"><span class="section-number-4">2.1.2</span> <code>chatmenu_teama</code> </h4>
+<h4 id="sec-2.1.2"><a name="vars" id="vars"></a><span class="section-number-4">2.1.2</span> <code>chatmenu_teama</code> </h4>
 <div class="outline-text-4" id="text-2.1.2">
 
-<p>Chat menu output file name  for team A.  Default is "<code>chatmenu_alien.cfg</code>".
+<p>Chat menu output file name  for team A.  Default is <code>chatmenu_alien.cfg</code>.
 </p>
 </div>
 
@@ -318,7 +345,7 @@ in your menu or using <a href="#sec-2.1.12">bind</a> command:
 <h4 id="sec-2.1.3"><span class="section-number-4">2.1.3</span> <code>chatmenu_teamb</code> </h4>
 <div class="outline-text-4" id="text-2.1.3">
 
-<p>Chat menu output file name for team B.  Default is "<code>chatmenu_human.cfg</code>".
+<p>Chat menu output file name for team B.  Default is <code>chatmenu_human.cfg</code>.
 </p>
 </div>
 
@@ -328,7 +355,7 @@ in your menu or using <a href="#sec-2.1.12">bind</a> command:
 <h4 id="sec-2.1.4"><span class="section-number-4">2.1.4</span> <code>chatmenu_spect</code> </h4>
 <div class="outline-text-4" id="text-2.1.4">
 
-<p>Chat menu output file name for spectator. Default is "<code>chatmenu_spec.cfg</code>".
+<p>Chat menu output file name for spectator. Default is <code>chatmenu_spec.cfg</code>.
 </p>
 </div>
 
@@ -339,7 +366,7 @@ in your menu or using <a href="#sec-2.1.12">bind</a> command:
 <div class="outline-text-4" id="text-2.1.5">
 
 <p>Main chat menu install script that contain all merged binds for all
-teams.  Default is "<code>chatmenu_install.cfg</code>".
+teams.  Default is <code>chatmenu_install.cfg</code>.
 </p>
 </div>
 
@@ -350,7 +377,7 @@ teams.  Default is "<code>chatmenu_install.cfg</code>".
 <div class="outline-text-4" id="text-2.1.6">
 
 <p>Script   file  for   binds   of  team   A   (aliens).  Default   is
-"<code>chatmenu_alien_install.cfg</code>".
+<code>chatmenu_alien_install.cfg</code>.
 </p>
 </div>
 
@@ -361,7 +388,7 @@ teams.  Default is "<code>chatmenu_install.cfg</code>".
 <div class="outline-text-4" id="text-2.1.7">
 
 <p>Script   file  for   binds   of  team   B   (humans).  Default   is
-"<code>chatmenu_human_install.cfg</code>")
+<code>chatmenu_human_install.cfg</code>)
 </p>
 </div>
 
@@ -372,7 +399,7 @@ teams.  Default is "<code>chatmenu_install.cfg</code>".
 <div class="outline-text-4" id="text-2.1.8">
 
 <p>Script    file    for    binds    of    spectator.    Default    is
-"<code>chatmenu_spect_install.cfg</code>")
+<code>chatmenu_spect_install.cfg</code>)
 </p>
 </div>
 
@@ -407,8 +434,7 @@ teams.  Default is "<code>chatmenu_install.cfg</code>".
     forecolor 45 45 45 1
     textscale 0.25
     autowrapped
-    textstyle ITEM_TEXTSTYLE_SHADOWED
-    cvartest cg_chatmenu"</span>
+    textstyle ITEM_TEXTSTYLE_SHADOWED"</span>
 </pre>
 
 
@@ -423,7 +449,7 @@ teams.  Default is "<code>chatmenu_install.cfg</code>".
 <div class="outline-text-4" id="text-2.1.10">
 
 <p>additional command  for BACKSPACE key (primary command  is set root
-menu).  Default "<code>play sound/misc/menu4.wav</code>"
+menu).  Default <code>play sound/misc/menu4.wav</code>
 </p>
 </div>
 
@@ -456,9 +482,9 @@ to quake bind.
 <h4 id="sec-2.1.13"><span class="section-number-4">2.1.13</span> bindTeams </h4>
 <div class="outline-text-4" id="text-2.1.13">
 
-<p><code>bindTeams</code> is  quake bind command, but team  specified bind. Like
-menu  you  can  load  different <code>*_install.cfg</code>  config  file  for
-different teams, and all binds  with this command will be only for
+<p><code>bindTeams</code> is  quake bind command,  but team specified  bind. Like
+menu  you  can  load  different  <code>*_install.cfg</code>  config  file  for
+different teams, and  all binds with this command  will be only for
 one of team. Format of command:
 </p>
 
@@ -476,7 +502,7 @@ one of team. Format of command:
 
 
 <p>
-Example: bind INSERT key to spawn as <b>(Adv)graner</b> if you in <a href="#coderef-btalien" class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-btalien');" onmouseout="CodeHighlightOff(this, 'coderef-btalien');">alien</a>
+Example: bind INSERT key to  spawn as <b>(Adv)graner</b> if you in <a href="#coderef-btalien" class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-btalien');" onmouseout="CodeHighlightOff(this, 'coderef-btalien');">alien</a>
 team or spawn as <b>human</b> <b>builder</b> and take ckit if you are <a href="#coderef-bthuman" class="coderef" onmouseover="CodeHighlightOn(this, 'coderef-bthuman');" onmouseout="CodeHighlightOff(this, 'coderef-bthuman');">human</a>:
 </p>
 
@@ -486,8 +512,8 @@ team or spawn as <b>human</b> <b>builder</b> and take ckit if you are <a href="#
 
 bindTeams INS {
     {echo ^1Spawn as builder;play $<span style="color: #b8860b;">snd_menuoff</span>}
-<span id="coderef-btalien" class="coderef-off">    {<span style="color: #a020f0;">class</span> builderupg;<span style="color: #a020f0;">class</span> builder}</span>
-<span id="coderef-bthuman" class="coderef-off">    {<span style="color: #a020f0;">class</span> ackit; <span style="color: #a020f0;">class</span> ckit;sell weapons;sell upgrades;buy ackit; buy ckit;itemact ackit;itemact ckit}</span>
+<span id="coderef-btalien" class="coderef-off">    {<span style="color: #a020f0; font-weight: bold;">class</span> builderupg;<span style="color: #a020f0; font-weight: bold;">class</span> builder}</span>
+<span id="coderef-bthuman" class="coderef-off">    {<span style="color: #a020f0; font-weight: bold;">class</span> ackit; <span style="color: #a020f0; font-weight: bold;">class</span> ckit;sell weapons;sell upgrades;buy ackit; buy ckit;itemact ackit;itemact ckit}</span>
     {echo ^1You are spectate}
 }
 </pre>
@@ -534,16 +560,24 @@ exec foobaar.cfg"</span>
 </p>
 <ul>
 <li>
- <code>variable_name</code>  is  quake  var  that  you  can  use  by  "<code>vstr      variable_name</code>" (good to bind some key to it);
+ <code>variable_name</code>  is  quake  var  that  you  can  use  by  <code>vstr      variable_name</code> (good to bind some key to it);
 </li>
 <li>
-<code>file_source</code> - source file of lines;
+<code>file_source</code> - source file  of lines, file also will be searched
+in directory where configure file is located;
 </li>
 <li>
 <code>file_dest</code> - generated configfile location;
 </li>
 <li>
 <code>execpath</code> - quakebased path to file;
+</li>
+<li>
+<code>prefix</code>,  <code>sufix</code> -  text that be  concatenate before  and after
+each line of text file;
+</li>
+<li>
+<code>command</code> - action to each line of text file (default <code>say</code>);
 
 </li>
 </ul>
@@ -553,7 +587,7 @@ exec foobaar.cfg"</span>
 
 
 
-<pre class="src src-tcl"><span style="color: #b22222;"># </span><span style="color: #b22222;">comment is line that start with #
+<pre class="src src-tcl"><span style="color: #888888;"># </span><span style="color: #b22222; font-style: italic;">comment is line that start with #
 </span>Hi
 Hello
 Hola
@@ -573,7 +607,7 @@ In your config you can add:
     <span style="color: #bc8f8f;">"~/.tremulous/base/ui/hud/common/msg/hello.cfg"</span> <span style="color: #bc8f8f;">\</span>
     ui/hud/common/msg/alienjoin.cfg <span style="color: #bc8f8f;">\</span>
     \o/(  ) say
-<span style="color: #b22222;"># </span><span style="color: #b22222;">bind it to menu 9.9
+<span style="color: #888888;"># </span><span style="color: #b22222; font-style: italic;">bind it to menu 9.9
 </span><span style="color: #da70d6;">set</span> <span style="color: #b8860b;">9</span>. {{Messages <span style="color: #bc8f8f;">"Messages:"</span>}  {play sound/misc/menu1.wav} }
 <span style="color: #da70d6;">set</span> <span style="color: #b8860b;">9</span>.9. { {} {}
     <span style="color: #bc8f8f;">"Hello"</span>  <span style="color: #bc8f8f;">"vstr Hello"</span>
@@ -603,7 +637,7 @@ chat menu i don't know, but you can inform me :).
 <p class="author"> Author: Olexandr Sydorchuk
 <a href="mailto:olexandr_syd [at] users.sourceforge.net">&lt;olexandr_syd [at] users.sourceforge.net&gt;</a>
 </p>
-<p class="date"> Date: 2010-03-05 13:02:23 UTC</p>
+<p class="date"> Date: 2010-09-26 23:45:50 UTC</p>
 <p class="creator">HTML generated by org-mode 6.31trans in emacs 23</p>
 </div>
 </div>
