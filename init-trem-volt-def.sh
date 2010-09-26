@@ -32,12 +32,14 @@ wget -c http://networkofdoom.net/~bishop3space/Tremulous/Projects/Hud/Volt_hud/R
 echo "===>  Download voltron"
 sleep 1
 mkdir voltron &>/dev/null
+rm voltron/voltron.tcl
 wget -nc -P ./voltron http://github.com/osv/voltron/raw/master/voltron.tcl
 if [ "$?" -ne "0" ]; then
   echo "Cannot download voltron.tcl."
   exit 1
 fi
 
+rm voltron/volt.config.tcl.sample
 wget -nc -P ./voltron http://github.com/osv/voltron/raw/master/volt.config.tcl.sample
 if [ "$?" -ne "0" ]; then
   echo "Cannot download voltron sample config file"
