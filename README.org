@@ -134,7 +134,7 @@ bind F9 "team spectate; exec ui/hud/common/chatmenu_spect_install.cfg"
 #+end_src
 
 ** Customising
-   You can use several variables and commands  for configuring.
+   You can use several variables and commands for configuring.
 *** =bind_keys=
     Keys for menu, default is {1 2 3 4 5 6 7 8 9 0 - =}.
 
@@ -165,12 +165,12 @@ bind F9 "team spectate; exec ui/hud/common/chatmenu_spect_install.cfg"
     =chatmenu_spect_install.cfg=)
 
 *** Template for menu
-   You may set menu template different for all teams:
-   - =menu_alien_tmpl=;
-   - =menu_human_tmpl=;
-   - =menu_spectator_tmpl=.
+    You may set menu template different for all teams:
+    - =menu_alien_tmpl=;
+    - =menu_human_tmpl=;
+    - =menu_spectator_tmpl=.
 
-   Default is:
+    Default is:
 
 #+begin_src tcl
 set menu_spectator_tmpl "    rect 6 210 400 190
@@ -183,24 +183,47 @@ set menu_spectator_tmpl "    rect 6 210 400 190
 #+end_src
 
 *** =backspace_cmd=
-    additional command  for BACKSPACE key (primary command  is set root
+    additional command for BACKSPACE  key (primary command is set root
     menu).  Default =play sound/misc/menu4.wav=
 
 *** =fileSplitSize=
-   Max file size before split. Quake  have limits for cfg file size in
-   16k.   To prevent  fail load  file will  be split  and  used =exec=
-   command.
+    Max file size before split. Quake have limits for cfg file size in
+    16k.   To prevent fail  load file  will be  split and  used =exec=
+    command.
+
+*** unbind
+    Quake like  unbind command. This  command have lower  prioritet vs
+    bind command.
+
+*** unbindTeams
+    Team specified unbind command. Format of command:
+
+#+begin_example
+unbindTeams key team_list
+#+end_example
+
+    Where =team_list= is list of:
+    - =ali=, =alien=, =a=, =1= -- alien team (team a)
+    - =hum=, =human, =b=, =2= -- human team (team b)
+    - =spec=, =spectator=, =3= -- spectator team
+
+    Example:
+
+#+begin_example
+unbindTeams v {hum ali}
+#+end_example
+
 
 #<<bind>>
 *** bind 
-   =bind= add additional key bind  at end of install script, it similar
-   to quake bind.
+    =bind=  add additional  key  bind  at end  of  install script,  it
+    similar to quake bind.
 
 *** bindTeams
-   =bindTeams= is  quake bind command,  but team specified  bind. Like
-   menu  you  can  load  different  =*_install.cfg=  config  file  for
-   different teams, and  all binds with this command  will be only for
-   one of team. Format of command:
+    =bindTeams= is  quake bind command, but team  specified bind. Like
+    menu  you  can  load  different =*_install.cfg=  config  file  for
+    different teams, and all binds  with this command will be only for
+    one of team. Format of command:
 
 #+begin_example
 bindTeams key {
@@ -211,8 +234,8 @@ bindTeams key {
  }
 #+end_example
 
-   Example: bind INSERT key to  spawn as *(Adv)graner* if you in [[(btalien)][alien]]
-   team or spawn as *human* *builder* and take ckit if you are [[(bthuman)][human]]:
+    Example: bind INSERT key to spawn as *(Adv)graner* if you in [[(btalien)][alien]]
+    team or spawn as *human* *builder* and take ckit if you are [[(bthuman)][human]]:
 
 #+begin_src tcl -r
 set snd_menuoff "sound/misc/menu3"
@@ -225,9 +248,9 @@ bindTeams INS {
 }
 #+end_src
 
-*** postInstall
-   Text of install script that be at and. Default is volt's binds like
-   sound control etc. You can easy add some stuff:
+*** =postInstall=
+    Text of  install script  that be at  and. Default is  volt's binds
+    like sound control etc. You can easy add some stuff:
 
 #+begin_src tcl
 set postInstall "$postInstall
@@ -235,24 +258,24 @@ set postInstall "$postInstall
 unbind v
 exec foobaar.cfg"
 #+end_src
- 
-*** =messages-from-file=
-   Create  messages  list  that  allow  you cyclic  run  some  command
-   (default is "say" command).  Format of command:
 
-   =messages-from-file variable_name file_source file_dest execpath {prefix {}} {sufix {}} {command {"say"}}=
+*** messages-from-file
+    Create  messages  list  that  allow  you cyclic  run  some  command
+    (default is "say" command).  Format of command:
 
-   -  =variable_name=  is  quake  var  that  you  can  use  by  =vstr
-     variable_name= (good to bind some key to it);
-   - =file_source= - source file  of lines, file also will be searched
+    =messages-from-file variable_name file_source file_dest execpath {prefix {}} {sufix {}} {command {"say"}}=
+
+    -  =variable_name=  is  quake  var  that  you  can  use  by  =vstr
+       variable_name= (good to bind some key to it);
+    - =file_source= - source file  of lines, file also will be searched
      in directory where configure file is located;
-   - =file_dest= - generated configfile location;
-   - =execpath= - quakebased path to file;
-   - =prefix=,  =sufix= -  text that be  concatenate before  and after
-     each line of text file;
-   - =command= - action to each line of text file (default =say=);
+    - =file_dest= - generated configfile location;
+    - =execpath= - quakebased path to file;
+    - =prefix=,  =sufix= -  text that be  concatenate before  and after
+      each line of text file;
+    - =command= - action to each line of text file (default =say=);
 
-   For example you wish to say different "hello". You have file =hello.txt=:
+    For example you wish to say different "hello". You have file =hello.txt=:
 
 #+begin_src tcl
 # comment is line that start with #
