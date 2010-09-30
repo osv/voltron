@@ -68,6 +68,8 @@ set Volt_vol06 \"set s_volume 1.2; set Volt_vol- vstr Volt_vol05; set Volt_vol+ 
 set Volt_vol07 \"set s_volume 1.4; set Volt_vol- vstr Volt_vol06; set Volt_vol+ vstr Volt_vol08; echo ^2Sound ^2Volume ^4|^1*******^3***^4|;s_volume;\"
 set Volt_vol08 \"set s_volume 1.6; set Volt_vol- vstr Volt_vol07; set Volt_vol+ vstr Volt_vol09; echo ^2Sound ^2Volume ^2|^1********^3**^2|;s_volume;\"
 "
+# return 1 if element in list
+proc in {list element} {expr [lsearch -exact $list $element] >= 0}
 
 #----------------------------------------
 # create msg list and bind to key
@@ -127,6 +129,31 @@ proc messages-from-file {varname f_source f_dest execpath {prefix {}} {sufix {}}
     puts $fd "// end."
     close $fs
     close $fd
+}
+
+#----------------------------------------
+# quake like unbind
+#----------------------------------------
+proc unbind  {key} {
+    global unbinds
+    lappend unbinds $key
+}
+
+#----------------------------------------
+# Team specified binds
+# usage:
+#  unbindTeams key team_list
+#
+# where team list may be:
+# ali, alien, a, 1 -- alien team
+# hum, human, b, 2 -- human team
+# spec, spectator, 3 -- spectator team
+# Example unbind `v` key for ali and hum only
+# unbindTeams v {alien human}; 
+#----------------------------------------
+proc unbindTeams  {key teams} {
+    global team_unbinds
+    set team_unbinds($key) $teams
 }
 
 #----------------------------------------
@@ -407,6 +434,50 @@ puts2All $postInstall
 
 puts2All ""
 
+# unbinds before binds
+if [info exist unbinds] {
+    if {[llength $unbinds] > 0} {
+	puts2All "// user's unbinds"
+	foreach key $unbinds {
+	    puts2All "unbind \"$key\""
+	}
+	puts2All ""
+    }
+}
+
+# teams specified unbinds
+set team_keys [array names team_unbinds]
+if {[llength $team_keys] >0} {
+    puts2All "// team specified unbinds"
+    foreach key $team_keys {
+	set ali no
+	set hum no
+	set spec no
+	foreach team $team_unbinds($key) {
+	    if [in "ali alien a 1" $team] {
+		set ali yes
+	    }
+	    if [in "hum human b 2" $team] {
+		set hum yes
+	    }
+	    if [in "spec spectator 3" $team] {
+		set spec yes
+	    }
+	}
+	if $ali {
+	    puts $fh_a "bind $key"
+	}
+	if $hum {
+	    puts $fh_b "bind $key"
+	}
+	if $spec {
+	    puts $fh_s "bind $key"
+	}
+    }
+    puts2All "// end team specified keys"
+    puts2All ""
+}
+
 # binds
 set keys [array names binds]
 if {[llength $keys] > 0} {
@@ -419,7 +490,7 @@ if {[llength $keys] > 0} {
 
 # teams specified binds
 set team_keys [array names team_binds]
-if {[llength team_keys] >0} {
+if {[llength $team_keys] >0} {
     puts2All "// team specified binds"
     foreach tb $team_keys {
 	set key [lindex [split $tb :] 0]
@@ -433,6 +504,7 @@ if {[llength team_keys] >0} {
 	puts $fh_s "bind $key \"$cmdAll;$cmdSpec\""
     }
     puts2All "// end team specified keys"
+    puts2All ""
 }
 # msg file
 foreach {var src exec} $msgexec {

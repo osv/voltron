@@ -298,6 +298,15 @@ bindTeams INS {
     {echo ^1You are spectate}
 }
 
+#----------------------------------------
+# # To unbind key use unbind
+# unbind v
+
+#----------------------------------------
+# # To unbind key for some team use unbindTeams
+# # Teams: ali hum spec
+# unbindTeams v {hum ali}
+
 # # Other bind. postInstall variable contain additional script code
 # # Below is default value:
 # set postInstall "
