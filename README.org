@@ -248,6 +248,28 @@ bindTeams INS {
 }
 #+end_src
 
+*** seta
+    Quake like =seta= command.
+
+*** setaTeams
+    Quake like =seta= command but team specified =seta=. Format of command
+
+#+begin_example
+setaTeams var command team_list
+#+end_example
+
+    Where =team_list= is list of:
+    - =ali=, =alien=, =a=, =1= -- alien team (team a)
+    - =hum=, =human, =b=, =2= -- human team (team b)
+    - =spec=, =spectator=, =3= -- spectator team
+
+    Example:
+
+#+begin_src tcl
+# Wall Walk Auto Pitching
+setaTeams cg_wwFollow 0 {alien}
+#+end_src  
+
 *** =postInstall=
     Text of  install script  that be at  and. Default is  volt's binds
     like sound control etc. You can easy add some stuff:

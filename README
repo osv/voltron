@@ -2,7 +2,7 @@
                            ================
 
 Author: Olexandr Sydorchuk <olexandr_syd [at] users.sourceforge.net>
-Date: 2010-09-30 20:05:57 UTC
+Date: 2010-09-30 23:53:37 UTC
 
 
 Table of Contents
@@ -26,8 +26,10 @@ Table of Contents
         2.1.13 unbindTeams 
         2.1.14 bind 
         2.1.15 bindTeams 
-        2.1.16 `postInstall' 
-        2.1.17 messages-from-file 
+        2.1.16 seta 
+        2.1.17 setaTeams 
+        2.1.18 `postInstall' 
+        2.1.19 messages-from-file 
 
 
 1 Overview 
@@ -292,7 +294,29 @@ Table of Contents
   }
 
 
-2.1.16 `postInstall' 
+2.1.16 seta 
+------------
+    Quake like `seta' command.
+
+2.1.17 setaTeams 
+-----------------
+    Quake like `seta' command but team specified `seta'. Format of command
+
+  setaTeams var command team_list
+
+
+    Where `team_list' is list of:
+    - `ali', `alien', `a', `1' -- alien team (team a)
+    - `hum', `human, =b', `2' -- human team (team b)
+    - `spec', `spectator', `3' -- spectator team
+
+    Example:
+
+  # Wall Walk Auto Pitching
+  setaTeams cg_wwFollow 0 alien
+
+
+2.1.18 `postInstall' 
 ---------------------
     Text of  install script  that be at  and. Default is  volt's binds
     like sound control etc. You can easy add some stuff:
@@ -303,7 +327,7 @@ Table of Contents
   exec foobaar.cfg"
 
 
-2.1.17 messages-from-file 
+2.1.19 messages-from-file 
 --------------------------
     Create  messages  list  that  allow  you cyclic  run  some  command
     (default is "say" command).  Format of command:
