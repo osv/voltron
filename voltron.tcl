@@ -209,6 +209,9 @@ proc split-file {filename fileSplitSize} {
     }
 }
 
+# you can source file inside config now
+lappend auto_path [file dirname $config_file]
+
 #----------------------------------------
 # load cfg file
 source $config_file
