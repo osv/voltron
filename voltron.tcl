@@ -68,6 +68,12 @@ set Volt_vol06 \"set s_volume 1.2; set Volt_vol- vstr Volt_vol05; set Volt_vol+ 
 set Volt_vol07 \"set s_volume 1.4; set Volt_vol- vstr Volt_vol06; set Volt_vol+ vstr Volt_vol08; echo ^2Sound ^2Volume ^4|^1*******^3***^4|;s_volume;\"
 set Volt_vol08 \"set s_volume 1.6; set Volt_vol- vstr Volt_vol07; set Volt_vol+ vstr Volt_vol09; echo ^2Sound ^2Volume ^2|^1********^3**^2|;s_volume;\"
 "
+
+#names of team for some command
+set teamAnames {ali alien a 1}
+set teamBnames {hum human b 2}
+set teamSnames {spec spectator 3}
+
 # return 1 if element in list
 proc in {list element} {expr [lsearch -exact $list $element] >= 0}
 
@@ -177,6 +183,41 @@ proc bind  {key command} {
 proc bindTeams  {key binds} {
     global team_binds
     set team_binds($key) $binds
+}
+
+#----------------------------------------
+# quake like seta
+#----------------------------------------
+proc seta  {var command} {
+    global seta_list
+    lappend seta_list $var 
+    lappend seta_list $command
+}
+
+#----------------------------------------
+# Team specified
+# where team list may be:
+# ali, alien, a, 1 -- alien team
+# hum, human, b, 2 -- human team
+# spec, spectator, 3 -- spectator team
+# Example:
+# setaTeams {e "itemtoggle blaster" human}
+# setaTeams {e "+speed" ali}
+#----------------------------------------
+proc setaTeams  {var command teams} {
+    global seta_listA seta_listB seta_listS
+    global teamAnames teamBnames teamSnames
+    foreach team $teams {
+	if [in $teamAnames $team] {
+	    set seta_listA($var) $command
+	}
+	if [in $teamBnames $team] {
+	    set seta_listB($var) $command
+	}
+	if [in $teamSnames $team] {
+	    set seta_listS($var) $command
+	}
+    }
 }
 
 proc split-file {filename fileSplitSize} {
@@ -454,13 +495,13 @@ if {[llength $team_keys] >0} {
 	set hum no
 	set spec no
 	foreach team $team_unbinds($key) {
-	    if [in "ali alien a 1" $team] {
+	    if [in $teamAnames $team] {
 		set ali yes
 	    }
-	    if [in "hum human b 2" $team] {
+	    if [in $teamBnames $team] {
 		set hum yes
 	    }
-	    if [in "spec spectator 3" $team] {
+	    if [in $teamSnames $team] {
 		set spec yes
 	    }
 	}
@@ -506,6 +547,42 @@ if {[llength $team_keys] >0} {
     puts2All "// end team specified keys"
     puts2All ""
 }
+
+# seta
+if [info exist seta_list] {
+    if {[llength $seta_list] > 0} {
+	puts2All "// user's sets"
+	foreach {var cmd} $seta_list {
+	    puts2All "seta \"$var\" \"$cmd\""
+	}
+	puts2All "// end user's sets"
+	puts2All ""
+    }
+}
+
+# team seta
+puts2All "// team specified sets"
+set vars [array names seta_listA]
+if {[llength $vars] >0} {
+    foreach var $vars {
+	puts $fh_a "set \"$var\" \"$seta_listA($var)\""
+    }
+}
+set vars [array names seta_listB]
+if {[llength $vars] >0} {
+    foreach var $vars {
+	puts $fh_b "set \"$var\" \"$seta_listB($var)\""
+    }
+}
+set vars [array names seta_listS]
+if {[llength $vars] >0} {
+    foreach var $vars {
+	puts $fh_s "set \"$var\" \"$seta_listS($var)\""
+    }
+}
+puts2All "// end team specified sets"
+puts2All ""
+
 # msg file
 foreach {var src exec} $msgexec {
     puts2All "// msg list from [file tail $src], variable for vstr: $var"
