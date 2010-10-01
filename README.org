@@ -19,7 +19,7 @@
   #+end_example
 
    You can  use sample  configure file [[http://github.com/osv/voltron/blob/master/volt.config.tcl.sample][volt.config.tcl.sample]]  as your
-   base configure file.
+   base configure file. Other example file you can find [[http://github.com/osv/config_files/tree/master/.tremulous/base/scr/][here]].
 
 * Creating chat menu
   Configure file is  [[http://www.tcl.tk][tcl]] source file. But don't  worry, you don't need
@@ -204,7 +204,7 @@ unbindTeams key team_list
 
     Where =team_list= is list of:
     - =ali=, =alien=, =a=, =1= -- alien team (team a)
-    - =hum=, =human, =b=, =2= -- human team (team b)
+    - =hum=, =human=, =b=, =2= -- human team (team b)
     - =spec=, =spectator=, =3= -- spectator team
 
     Example:
@@ -260,7 +260,7 @@ setaTeams var command team_list
 
     Where =team_list= is list of:
     - =ali=, =alien=, =a=, =1= -- alien team (team a)
-    - =hum=, =human, =b=, =2= -- human team (team b)
+    - =hum=, =human=, =b=, =2= -- human team (team b)
     - =spec=, =spectator=, =3= -- spectator team
 
     Example:

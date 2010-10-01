@@ -2,7 +2,7 @@
                            ================
 
 Author: Olexandr Sydorchuk <olexandr_syd [at] users.sourceforge.net>
-Date: 2010-09-30 23:53:37 UTC
+Date: 2010-10-01 00:12:50 UTC
 
 
 Table of Contents
@@ -252,7 +252,7 @@ Table of Contents
 
     Where `team_list' is list of:
     - `ali', `alien', `a', `1' -- alien team (team a)
-    - `hum', `human, =b', `2' -- human team (team b)
+    - `hum', `human', `b', `2' -- human team (team b)
     - `spec', `spectator', `3' -- spectator team
 
     Example:
@@ -307,13 +307,13 @@ Table of Contents
 
     Where `team_list' is list of:
     - `ali', `alien', `a', `1' -- alien team (team a)
-    - `hum', `human, =b', `2' -- human team (team b)
+    - `hum', `human', `b', `2' -- human team (team b)
     - `spec', `spectator', `3' -- spectator team
 
     Example:
 
   # Wall Walk Auto Pitching
-  setaTeams cg_wwFollow 0 alien
+  setaTeams cg_wwFollow 0 {alien}
 
 
 2.1.18 `postInstall' 

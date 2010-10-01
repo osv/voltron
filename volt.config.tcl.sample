@@ -307,6 +307,17 @@ bindTeams INS {
 # # Teams: ali hum spec
 # unbindTeams v {hum ali}
 
+#----------------------------------------
+## you can use seta command here but
+## no sequence dependent sets
+seta cl_allowDownload 1
+seta cg_disableWarningDialogs 1
+
+#----------------------------------------
+## Team specified seta version
+## uncomment for set cg_wwFollow 0 for alien team
+# setaTeams cg_wwFollow 0 {ali}
+
 # # Other bind. postInstall variable contain additional script code
 # # Below is default value:
 # set postInstall "
