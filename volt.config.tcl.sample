@@ -82,8 +82,7 @@ set binds_spect_install "~/.tremulous/base/ui/hud/common/chatmenu_spect_install.
 #     forecolor 45 45 45 1
 #     textscale 0.25
 #     autowrapped
-#     textstyle ITEM_TEXTSTYLE_SHADOWED
-#     cvartest cg_chatmenu"
+#     textstyle ITEM_TEXTSTYLE_SHADOWED"
 
 # #----------------------------------------
 # # Next variables can be used for customize each menu item of chat menu

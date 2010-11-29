@@ -22,8 +22,7 @@ set menu_alien_tmpl "
     forecolor 45 45 45 1
     textscale 0.25
     autowrapped
-    textstyle ITEM_TEXTSTYLE_SHADOWED
-    cvartest cg_chatmenu"
+    textstyle ITEM_TEXTSTYLE_SHADOWED"
 
 set menu_human_tmpl "
     rect 6 370 600 190
@@ -32,8 +31,7 @@ set menu_human_tmpl "
     forecolor 45 45 45 1
     textscale 0.25
     autowrapped
-    textstyle ITEM_TEXTSTYLE_SHADOWED
-    cvartest cg_chatmenu"
+    textstyle ITEM_TEXTSTYLE_SHADOWED"
 
 set menu_spectator_tmpl "
     rect 6 400 600 190
@@ -42,5 +40,4 @@ set menu_spectator_tmpl "
     forecolor 45 45 45 1
     textscale 0.25
     autowrapped
-    textstyle ITEM_TEXTSTYLE_SHADOWED
-    cvartest cg_chatmenu"
+    textstyle ITEM_TEXTSTYLE_SHADOWED"
