@@ -2,7 +2,7 @@
                            ================
 
 Author: Olexandr Sydorchuk <olexandr_syd [at] users.sourceforge.net>
-Date: 2010-10-01 00:12:50 UTC
+Date: 2010-11-29 20:31:58 UTC
 
 
 Table of Contents
@@ -20,16 +20,17 @@ Table of Contents
         2.1.7 `binds_teamb_install' 
         2.1.8 `binds_spect_install' 
         2.1.9 Template for menu 
-        2.1.10 `backspace_cmd' 
-        2.1.11 `fileSplitSize' 
-        2.1.12 unbind 
-        2.1.13 unbindTeams 
-        2.1.14 bind 
-        2.1.15 bindTeams 
-        2.1.16 seta 
-        2.1.17 setaTeams 
-        2.1.18 `postInstall' 
-        2.1.19 messages-from-file 
+        2.1.10 Customize menu item 
+        2.1.11 `backspace_cmd' 
+        2.1.12 `fileSplitSize' 
+        2.1.13 unbind 
+        2.1.14 unbindTeams 
+        2.1.15 bind 
+        2.1.16 bindTeams 
+        2.1.17 seta 
+        2.1.18 setaTeams 
+        2.1.19 `postInstall' 
+        2.1.20 messages-from-file 
 
 
 1 Overview 
@@ -52,10 +53,11 @@ Table of Contents
 
 
    You can  use sample  configure file [volt.config.tcl.sample]  as your
-   base configure file.
+   base configure file. Other example file you can find [here].
 
 
    [volt.config.tcl.sample]: http://github.com/osv/voltron/blob/master/volt.config.tcl.sample
+   [here]: http://github.com/osv/config_files/tree/master/.tremulous/base/scr/
 
 2 Creating chat menu 
 ~~~~~~~~~~~~~~~~~~~~~
@@ -227,23 +229,55 @@ Table of Contents
       textstyle ITEM_TEXTSTYLE_SHADOWED"
 
 
-2.1.10 `backspace_cmd' 
+2.1.10 Customize menu item 
+---------------------------
+    You can  specify prefix and suffix  of menu item of  chat menu for
+    each team.   This variables will  be substituted with  template of
+    menu for each menu item. By default used prefixes and suffixes for
+    vertical look:
+
+  set tmpl_a_prefix {}
+  set tmpl_b_prefix {}
+  set tmpl_s_prefix {}
+  set tmpl_a_suffix {\n}
+  set tmpl_b_suffix {\n}
+  set tmpl_s_suffix {\n}
+  # will create next menu look:
+  # 1. \m/
+  # 2. Yakh
+  # 3. Dekaruchaa!
+
+
+    To set horizontal look you need remove \n from default suffix:
+
+  # \[ because "[" and "]" are command substitute parents in tcl 
+  set tmpl_a_prefix " \["
+  set tmpl_b_prefix " \["
+  set tmpl_s_prefix " \["
+  set tmpl_a_suffix "\]"
+  set tmpl_b_suffix "\]"
+  set tmpl_s_suffix "\]"
+  # will create next menu look:
+  #  [1. \m/] [2. Yakh] [3. Dekaruchaa!]
+
+
+2.1.11 `backspace_cmd' 
 -----------------------
     additional command for BACKSPACE  key (primary command is set root
     menu).  Default `play sound/misc/menu4.wav'
 
-2.1.11 `fileSplitSize' 
+2.1.12 `fileSplitSize' 
 -----------------------
     Max file size before split. Quake have limits for cfg file size in
     16k.   To prevent fail  load file  will be  split and  used `exec'
     command.
 
-2.1.12 unbind 
+2.1.13 unbind 
 --------------
     Quake like  unbind command. This  command have lower  prioritet vs
     bind command.
 
-2.1.13 unbindTeams 
+2.1.14 unbindTeams 
 -------------------
     Team specified unbind command. Format of command:
 
@@ -261,12 +295,12 @@ Table of Contents
 
 
 
-2.1.14 bind 
+2.1.15 bind 
 ------------
     `bind'  add additional  key  bind  at end  of  install script,  it
     similar to quake bind.
 
-2.1.15 bindTeams 
+2.1.16 bindTeams 
 -----------------
     `bindTeams' is  quake bind command, but team  specified bind. Like
     menu  you  can  load  different `*_install.cfg'  config  file  for
@@ -294,11 +328,11 @@ Table of Contents
   }
 
 
-2.1.16 seta 
+2.1.17 seta 
 ------------
     Quake like `seta' command.
 
-2.1.17 setaTeams 
+2.1.18 setaTeams 
 -----------------
     Quake like `seta' command but team specified `seta'. Format of command
 
@@ -316,7 +350,7 @@ Table of Contents
   setaTeams cg_wwFollow 0 {alien}
 
 
-2.1.18 `postInstall' 
+2.1.19 `postInstall' 
 ---------------------
     Text of  install script  that be at  and. Default is  volt's binds
     like sound control etc. You can easy add some stuff:
@@ -327,7 +361,7 @@ Table of Contents
   exec foobaar.cfg"
 
 
-2.1.19 messages-from-file 
+2.1.20 messages-from-file 
 --------------------------
     Create  messages  list  that  allow  you cyclic  run  some  command
     (default is "say" command).  Format of command:

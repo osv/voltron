@@ -182,6 +182,39 @@ set menu_spectator_tmpl "    rect 6 210 400 190
     textstyle ITEM_TEXTSTYLE_SHADOWED"
 #+end_src
 
+*** Customize menu item
+    You can  specify prefix and suffix  of menu item of  chat menu for
+    each team.   This variables will  be substituted with  template of
+    menu for each menu item. By default used prefixes and suffixes for
+    vertical look:
+
+#+begin_src tcl
+set tmpl_a_prefix {}
+set tmpl_b_prefix {}
+set tmpl_s_prefix {}
+set tmpl_a_suffix {\n}
+set tmpl_b_suffix {\n}
+set tmpl_s_suffix {\n}
+# will create next menu look:
+# 1. \m/
+# 2. Yakh
+# 3. Dekaruchaa!
+#+end_src
+
+    To set horizontal look you need remove \n from default suffix:
+
+#+begin_src tcl
+# \[ because "[" and "]" are command substitute parents in tcl 
+set tmpl_a_prefix " \["
+set tmpl_b_prefix " \["
+set tmpl_s_prefix " \["
+set tmpl_a_suffix "\]"
+set tmpl_b_suffix "\]"
+set tmpl_s_suffix "\]"
+# will create next menu look:
+#  [1. \m/] [2. Yakh] [3. Dekaruchaa!]
+#+end_src
+
 *** =backspace_cmd=
     additional command for BACKSPACE  key (primary command is set root
     menu).  Default =play sound/misc/menu4.wav=
